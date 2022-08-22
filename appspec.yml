@@ -3,7 +3,7 @@ Resources:
   - TargetService:
       Type: AWS::ECS::Service
       Properties:
-        TaskDefinition: "arn:aws:ecs:ap-south-1:269721309720:task-definition/first-run-task-definition:1"
+        TaskDefinition: "arn:aws:ecs:ap-south-1:269721309720:task-definition/auditchecklist:3"
         LoadBalancerInfo:
           ContainerName: "auditchecklist"
           ContainerPort: "8000"
