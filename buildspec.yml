@@ -1,0 +1,34 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto17
+  pre_build:
+    commands:
+      - echo Logging into Amazon ECR...
+      - aws --version
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 269721309720.dkr.ecr.ap-south-1.amazonaws.com
+      - IMAGE_NAME=auditauth
+      - IMAGE_URI=269721309720.dkr.ecr.ap-south-1.amazonaws.com/auditchecklist
+      - CONTAINER_NAME=$IMAGE_NAME
+  build:
+    commands:
+      - echo Build started on 'date'
+      - echo $IMAGE_NAME
+      - mvn compile
+      - mvn package
+      - echo Building the Docker image...
+      - docker build -t $IMAGE_NAME .
+  post_build:
+    commands:
+      - echo Build completed on 'date'
+      - echo $(docker images)
+      - docker tag $IMAGE_NAME $IMAGE_URI
+      - echo Pushin the Docker image...
+      - docker push $IMAGE_URI
+      - echo push completed
+      - printf '[{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME $IMAGE_URI > imagedefinitions.json
+
+artifacts:
+  files: imagedefinitions.json
