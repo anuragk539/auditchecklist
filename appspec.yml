@@ -1,10 +1,10 @@
-# version: 1.0
-# Resources:
-#   - TargetService:
-#       Type: AWS::ECS::Service
-#       Properties:
-#         TaskDefinition: "arn:aws:ecs:ap-south-1:269721309720:task-definition/auditchecklist:3"
-#         LoadBalancerInfo:
-#           ContainerName: "auditchecklist"
-#           ContainerPort: "8000"
-#         PlatformVersion: "LATEST"
+version: 1.0
+Resources:
+  - TargetService:
+      Type: AWS::ECS::Service
+      Properties:
+        TaskDefinition: "arn:aws:ecs:ap-south-1:269721309720:task-definition/auditchecklist:3"
+        LoadBalancerInfo:
+          ContainerName: "auditchecklist"
+          ContainerPort: "8000"
+        PlatformVersion: "LATEST"
